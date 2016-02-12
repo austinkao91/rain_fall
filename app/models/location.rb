@@ -17,22 +17,20 @@ class Location < ActiveRecord::Base
   validates :zip_code, uniqueness: {:scope => :timestamp}
 
   def self.last_days(zip_code, limit=10)
-    puts "============================================================================"
-    puts "Zipcode is #{zip_code}"
-    puts "============================================================================"
+
     Location.where("zip_code = ? AND timestamp >= ?", zip_code, (limit+1).days.ago)
                 .limit(limit)
                 .order(:precip => :desc, :timestamp => :desc)
   end
 
 
-  def self.save_locations(raw_json, zip_code)
-    parsed_body = JSON.parse(raw_json)
+  def self.save_locations(parsed_body, zip_code)
+
     parsed_body.map! do |el|
        el["zip_code"] = zip_code.to_i
        el
      end
-    parsed_body.each {|loc| Location.new(loc).save }
+    parsed_body.each { |loc| Location.new(loc).save }
 
     parsed_body.sort { |el1, el2| el2["precip"].to_f <=> el1["precip"].to_f }
   end

@@ -1,30 +1,28 @@
 class LocationController < ApplicationController
   def root
     if(params[:zip_code])
-      puts "============================================================================"
-      puts "Root Params are #{params}"
-      puts "============================================================================"
       redirect_to "/location/#{params[:zip_code]}"
     end
   end
 
 
   def show
-    puts "============================================================================"
-    puts "Show Params are #{params}"
-    puts "============================================================================"
     if(verify_format(params[:zip_code]))
       @zip_code = params[:zip_code]
       @locations = Location.last_days(@zip_code)
 
       if(@locations.length < 10)
         raw_json = query_locations(@zip_code)
-        unless(raw_json["response_code"] && raw_json["response_code"].to_i > 200)
-          @locations = Location.save_locations(raw_json, @zip_code)
+        parsed_body = JSON.parse(raw_json)
+
+        unless(unfound_records?(parsed_body) || unfound_zip_code?(parsed_body))
+
+          flash[:notice] = ["NOTE: we have fewer than 10 days of record on hand"] if(parsed_body.length < 10)
+          @locations = Location.save_locations(parsed_body, @zip_code)
+
         else
-          @zip_code = nil
           @locations = []
-          flash[:errors] = ["Zip code #{params[:zip_code]} does not appear in our records!"]
+          flash[:errors] = ["Zip code #{@zip_code} either does not exist or has no rain fall data in our records!"]
         end
       end
 
@@ -34,9 +32,8 @@ class LocationController < ApplicationController
       flash[:errors] = ["Zip code should be in the format 12345"]
     end
 
-    if(@locations.empty?)
-      redirect_to root_url
-    end
+    redirect_to root_url if(@locations.empty?)
+
   end
 
   private
@@ -57,10 +54,6 @@ class LocationController < ApplicationController
     url = URI.parse(
       "https://api.weathersource.com/v1/#{WEATHER_SOURCE_API_KEY}/history_by_postal_code.json?#{query}"
     )
-    puts "============================================================================"
-    puts "API KEY IS #{WEATHER_SOURCE_API_KEY}"
-    puts "QUERY IS #{query}"
-    puts "============================================================================"
     req = Net::HTTP.new(url.host,url.port)
     req.use_ssl = true
     res = req.get(url.request_uri)
@@ -69,6 +62,16 @@ class LocationController < ApplicationController
 
   def verify_format(zip_code)
     return (zip_code.length == 5 && zip_code.match(/\d{5}/).to_s == zip_code)
+  end
+
+  def unfound_zip_code?(parsed_body)
+    unless(parsed_body.is_a? Array)
+      (parsed_body["response_code"] && parsed_body["response_code"].to_i > 200)
+    end
+  end
+
+  def unfound_records?(parsed_body)
+    parsed_body.empty?
   end
 
 

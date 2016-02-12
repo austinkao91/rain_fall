@@ -1,7 +1,5 @@
-<h1>Rain Fall</h1>
-
 <% if flash[:errors] %>
-  <ul>
+  <ul class="flash">
     <% flash[:errors].each do |error| %>
       <li>
         <%= error %>
@@ -10,12 +8,19 @@
   </ul>
 <% end %>
 
-<div class="query">
-  <form action="/location/" method="get">
-    <label>
-      Zip Code
-      <input type="text" name="zip_code">
-    </label>
-    <input type="submit" value="See Rainfall!">
-  </form>
+<div class="page">
+  <div class="zip_code_query">
+    <h1>Rain Fall</h1>
+
+
+
+    <form  action="/location/" method="get">
+      <label>
+
+        <input class="form_input" type="text" name="zip_code" placeholder="Zip Code (US only)">
+      </label>
+      <br>
+      <input type="submit" value="See Rainfall!">
+    </form>
+  </div>
 </div>
