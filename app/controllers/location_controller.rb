@@ -13,7 +13,7 @@ class LocationController < ApplicationController
 
       if(@locations.length < 10)
         raw_json = query_locations(@zip_code)
-        unless(raw_json["response_code"] && raw_json["response_code"] >= 200)
+        unless(raw_json["response_code"] && raw_json["response_code"].to_s > 200)
           @locations = Location.save_locations(raw_json, @zip_code)
         else
           @zip_code = nil
