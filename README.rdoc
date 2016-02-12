@@ -42,7 +42,8 @@ Install a ruby version manager (rbenv is one of the more popular ones)
   rbenv global 2.2.3
   ruby -v
 
-* Installing NodeJS (this is optional since this project doesn't use any javascript assets, but in case you do in the future...)
+* Installing NodeJS
+This is optional since this project doesn't use any javascript assets, but in case you want to have it for future references..
 
   curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
   sudo apt-get install -y nodejs
@@ -55,6 +56,8 @@ It's as simple as installing this gem!
   rails -v #Rails 4.2.4
 
 * Installing postgresql
+
+I used postgreSQL for this, and this app is configured to run with postgreSQL.
 
   sudo sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
   wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -
