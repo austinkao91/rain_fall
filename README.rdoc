@@ -18,13 +18,13 @@ on Ubuntu Linux.
   3. Rails
   4. postgreSQL
 
-1. Installing ruby
-  1a) Install some dependencies using the commands
+[1] Installing ruby
+Install some dependencies using the commands
 
   sudo apt-get update
   sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
 
-  1b) Install a ruby version manager (rbenv is one of the more popular ones)
+Install a ruby version manager (rbenv is one of the more popular ones)
 
   cd
   git clone git://github.com/sstephenson/rbenv.git .rbenv
@@ -42,14 +42,14 @@ on Ubuntu Linux.
   rbenv global 2.2.3
   ruby -v
 
-2. Installing NodeJS (this is optional since this project doesn't use any javascript assets, but in case you do in the future...)
+[2] Installing NodeJS (this is optional since this project doesn't use any javascript assets, but in case you do in the future...)
 
   curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
   sudo apt-get install -y nodejs
 
 3. Installing Rails
 
-  It's as simple as installing this gem!
+It's as simple as installing this gem!
 
   gem install rails -v 4.2.4
   rails -v #Rails 4.2.4
@@ -62,7 +62,7 @@ on Ubuntu Linux.
   sudo apt-get install postgresql-common
   sudo apt-get install postgresql-9.3 libpq-dev
 
-  To set up a user
+To set up a user
 
 
   sudo -u postgres createuser {your_username} -s
@@ -78,4 +78,4 @@ In the same folder, cd into the rain_fall_app, and run
 
   rails s
 
-to start up your server!
+to start up your server. By default, the rails app will be hosted at http://localhost:3000
