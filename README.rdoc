@@ -1,28 +1,90 @@
-== README
+Simple rainfall app
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Heroku link: http://nameless-coast-10445.herokuapp.com
 
-Things you may want to cover:
+Fetches the rainfall from the past 10 days at any given US zip code, and
+sorts them in ascending order.
 
-* Ruby version
+Uses weather source api to retrieve the weather.
 
-* System dependencies
+In order to run this locally, visit https://gorails.com/setup/, provides
+a great tutorial on installing rails on your operating system.
 
-* Configuration
+That being said, I will provide a quick summary of things needed to be installed
+on Ubuntu Linux.
 
-* Database creation
+  1. Ruby
+  2. NodeJS
+  3. Rails
+  4. postgreSQL
 
-* Database initialization
+1. Installing ruby
+  1a) Install some dependencies using the commands
 
-* How to run the test suite
+  sudo apt-get update
+  sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev
 
-* Services (job queues, cache servers, search engines, etc.)
+  1b) Install a ruby version manager (rbenv is one of the more popular ones)
 
-* Deployment instructions
+=begin rdoc
+  cd
+  git clone git://github.com/sstephenson/rbenv.git .rbenv
+  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+  echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+  exec $SHELL
 
-* ...
+  git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+  echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
+  exec $SHELL
 
+  git clone https://github.com/sstephenson/rbenv-gem-rehash.git ~/.rbenv/plugins/rbenv-gem-rehash
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+  rbenv install 2.2.3
+  rbenv global 2.2.3
+  ruby -v
+=end
+
+2. Installing NodeJS (this is optional since this project doesn't use any javascript assets, but in case you do in the future...)
+
+=begin rdoc
+  curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+  sudo apt-get install -y nodejs
+=end
+3. Installing Rails
+
+  It's as simple as installing this gem!
+
+=begin rdoc
+  gem install rails -v 4.2.4
+  rails -v #Rails 4.2.4
+=end
+
+4. Installing postgresql
+
+=begin rdoc
+  sudo sh -c "echo 'deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
+  wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -
+  sudo apt-get update
+  sudo apt-get install postgresql-common
+  sudo apt-get install postgresql-9.3 libpq-dev
+=end
+
+  To set up a user
+
+=begin rdoc
+  sudo -u postgres createuser {your_username} -s
+  sudo -u postgres psql #(if you want to set up a password)
+=end
+
+Great! Now that everything is installed and setup, simply clone this repository.
+In the same folder, cd into the rain_fall_app, and run
+=begin rdoc
+ bundle install
+
+  rake db:create
+  rake db:migrate
+
+  rails s
+=end
+
+to start up your server!
