@@ -8,7 +8,7 @@
   </ul>
 <% end %>
 <div class="page">
-  <div class="zip_code_query">
+  <div class="zip_code_results">
     <h1>Past 10 days of rainfall at <%= @zip_code%></h1>
     <table>
 
@@ -27,6 +27,7 @@
       <% end %>
     </tr>
     </table>
+    <br>
 
     <%= link_to "Go back", {controller: "location", action: "root"} %>
   </div>

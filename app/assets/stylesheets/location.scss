@@ -35,18 +35,29 @@ form > input {
   margin-bottom: 20px;
 }
 
-form  {
+form {
   text-align: center;
 }
 
-a {
-  padding-bottom: 20px;
+input.form-button {
+  font-size: 30px;
+  padding: 10px;
+  border-radius: 5px;
 }
+
 
 .zip_code_query {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align:center;
+}
+
+
+.zip_code_results {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  text-align: center;
 }
