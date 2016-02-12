@@ -1,4 +1,4 @@
-Simple rainfall app
+*Simple rainfall app*
 
 Heroku link: http://nameless-coast-10445.herokuapp.com
 
