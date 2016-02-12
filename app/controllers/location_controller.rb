@@ -51,7 +51,10 @@ class LocationController < ApplicationController
     url = URI.parse(
       "https://api.weathersource.com/v1/#{WEATHER_SOURCE_API_KEY}/history_by_postal_code.json?#{query}"
     )
-
+    puts "============================================================================"
+    puts "API KEY IS #{WEATHER_SOURCE_API_KEY}"
+    puts "QUERY IS #{query}"
+    puts "============================================================================"
     req = Net::HTTP.new(url.host,url.port)
     req.use_ssl = true
     res = req.get(url.request_uri)
