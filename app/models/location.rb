@@ -18,7 +18,7 @@ class Location < ActiveRecord::Base
 
   def self.last_days(zip_code, limit=10)
 
-    Location.where("zip_code = ? AND timestamp >= ?", zip_code, (limit+1).days.ago)
+    Location.where("zip_code = ? AND timestamp >= ?", zip_code, (limit).days.ago)
                 .limit(limit)
                 .order(:precip => :desc, :timestamp => :desc)
   end

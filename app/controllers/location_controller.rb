@@ -10,7 +10,6 @@ class LocationController < ApplicationController
     if(verify_format(params[:zip_code]))
       @zip_code = params[:zip_code]
       @locations = Location.last_days(@zip_code)
-
       if(@locations.length < 10)
         raw_json = query_locations(@zip_code)
         parsed_body = JSON.parse(raw_json)
@@ -40,7 +39,7 @@ class LocationController < ApplicationController
   def query_locations(zip_code, limit=10 )
     # start_date = dates[0]
     # end_date = dates[1]
-    start_date ||= Location.isoParse((limit+1).days.ago)
+    start_date ||= Location.isoParse((limit).days.ago)
     end_date ||= Location.isoParse(Time.now)
 
     zip_s = "postal_code_eq=#{zip_code}"
