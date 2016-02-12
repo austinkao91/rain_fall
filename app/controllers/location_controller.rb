@@ -1,12 +1,18 @@
 class LocationController < ApplicationController
   def root
     if(params[:zip_code])
+      puts "============================================================================"
+      puts "Root Params are #{params}"
+      puts "============================================================================"
       redirect_to "/location/#{params[:zip_code]}"
     end
   end
 
 
   def show
+    puts "============================================================================"
+    puts "Show Params are #{params}"
+    puts "============================================================================"
     if(verify_format(params[:zip_code]))
       @zip_code = params[:zip_code]
       @locations = Location.last_days(@zip_code)
