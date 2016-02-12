@@ -1,0 +1,17 @@
+<table>
+  <th colspan="2">
+    Past 10 days of rainfall at <%= @zip_code%>
+  </th>
+  <tr>
+    <td>Date</td>
+    <td>Precipitation (inches)</td>
+  </tr>
+  <% @locations.each do |loc| %>
+    <tr>
+      <td><%=loc["timestamp"].to_s.split("T").first%></td>
+      <td><%=loc["precip"]%></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to "Go back", {controller: "location", action: "root"} %>
