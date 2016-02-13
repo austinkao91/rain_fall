@@ -39,7 +39,8 @@ class LocationController < ApplicationController
   def query_locations(zip_code, limit=10 )
     # start_date = dates[0]
     # end_date = dates[1]
-    start_date ||= Location.isoParse((limit).days.ago)
+    first_date = Time.now - limit.days
+    start_date ||= Location.isoParse(first_date)
     end_date ||= Location.isoParse(Time.now)
 
     zip_s = "postal_code_eq=#{zip_code}"

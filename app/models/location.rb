@@ -17,8 +17,8 @@ class Location < ActiveRecord::Base
   validates :zip_code, uniqueness: {:scope => :timestamp}
 
   def self.last_days(zip_code, limit=10)
-
-    Location.where("zip_code = ? AND timestamp >= ?", zip_code, (limit).days.ago)
+    first_date = Time.now - limit.days
+    Location.where("zip_code = ? AND timestamp >= ?", zip_code, first_date)
                 .limit(limit)
                 .order(:precip => :desc, :timestamp => :desc)
   end
