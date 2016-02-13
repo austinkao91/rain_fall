@@ -39,7 +39,7 @@ class LocationController < ApplicationController
   def query_locations(zip_code, limit=10 )
     # start_date = dates[0]
     # end_date = dates[1]
-    first_date = (Time.now - limit.days).to_s.split(" ").first
+    first_date = (Time.now - limit.days)
     start_date ||= Location.isoParse(first_date)
     end_date ||= Location.isoParse(Time.now)
 
