@@ -37,6 +37,7 @@ class Location < ActiveRecord::Base
 
 
   def self.isoParse(time)
-    time.to_s.split(" ")[0..-2].join("T")
+    time_arr = time.to_s.split(" ")
+    "#{time_arr[0]}T#{time_arr[1]}#{time_arr[2]}"
   end
 end

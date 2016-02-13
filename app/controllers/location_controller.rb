@@ -47,6 +47,7 @@ class LocationController < ApplicationController
     puts "start date is #{start_date}"
     puts "end date is #{end_date}"
     puts "============================================================"
+    
     zip_s = "postal_code_eq=#{zip_code}"
     country_s = "country_eq=US"
     time_btw = "timestamp_between=#{start_date},#{end_date}"
